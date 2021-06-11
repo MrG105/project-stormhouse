@@ -4,6 +4,8 @@ var eventSize = 5;
 var city = 'Houston';
 var startDate = '2021-06-12T14:00:00Z';
 var endDate =  '2021-06-14T14:00:00Z';
+var searchBtn = document.getElementById("searchBtn");
+var searchBar = document.getElementById("searchBar");
 
 // Gives City Coordinates for future weather
 function getCoords(city) {

@@ -3,6 +3,18 @@
     text-align: center;
 }
 
+.citySearch {
+  
+   border: solid black 2px;
+}
+h2 {
+   margin-left: 40%; 
+}
 .searchBar {
-    width: 16%;
+    width: 50%;
+    margin-left: 25%;
+    height: 45px;
+}
+.searchBtn {
+    margin-left: 50%;
 }
