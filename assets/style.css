@@ -18,3 +18,33 @@ h2 {
 .searchBtn {
     margin-left: 50%;
 }
+
+.display {
+    margin-top: 50px;
+    border: black 2px solid;
+    width: 70%;
+    height: 500px;
+}
+
+.weather {
+    border: solid black 2px;
+    width: 350px;
+    height: 400px;
+    margin-top: 30px;
+    margin-left: 25px;
+}
+
+.eventOne {
+    display: flex;
+    width: 550px;
+    height: 80px;
+    border: black 2px solid;
+    justify-content: space-between;
+    margin-left: 500px;
+    margin-top: 10px;
+}
+
+.event {
+    margin-top: -410px;
+}
+
