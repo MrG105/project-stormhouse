@@ -9,7 +9,7 @@ var searchBar = document.getElementById("searchBar");
 var family = 'only';
 var searchHistory = JSON.parse(localStorage.getItem('search')) || [];
 var weatherEl = document.getElementById('weather');
-var eventEl = document.getElementsByClassName('event1');
+var eventEl = document.getElementsByClassName('eventOne');
 
 
 // Gives City Coordinates for future weather
@@ -39,14 +39,14 @@ function getWeather(lat,lon) {
 function populateEventList(data) {
    for (i = 0; i <eventEl.length; i++) {
       eventEl[i].innerHTML = '';
-      var eventIconURL = data.events[i].images[0].url;
-      var EventIcon = document.createElement('img');
-      createEventIcon.setAttribute('src', eventIconURL);
-      eventEl[i].appendChild(EventIcon)
-      var eventTitle = data.events[i].name;
+      var eventIconURL = data._embedded.events[i].images[0].url;
+      var eventIcon = document.createElement('img');
+      eventIcon.setAttribute('src', eventIconURL);
+      eventEl[i].appendChild(eventIcon);
+      var eventTitle = data._embedded.events[i].name;
       var createEventTitle = document.createElement('h3');
       createEventTitle.innerHTML = eventTitle;
-      eventEl[i].appendChild(eventTitle);
+      eventEl[i].appendChild(createEventTitle);
    }
 }
 
@@ -74,7 +74,7 @@ function getEventInfo(city) {
       },
       success: function(json) {
          console.log(json);
-         populateEventList(data);
+         populateEventList(json);
          // Parse the response.
          // Do other things.
       },
