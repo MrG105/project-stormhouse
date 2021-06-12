@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css" integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
     <link rel="stylesheet" href="./assets/style.css" />
-    <title>Weather for Events</title>
+     <title>Weather for Events</title>
 </head>
 <body>
     <header class="header">
@@ -18,17 +19,65 @@
   </section>
   <section class="display" id="display">
     <div class="weather" id="weather">WEATHER</div>
-    <div class="eventOne event" id="eventOne">FIRST EVENT
-      <p class="eventDate"></p>
+    <div><button data-open="popUp-modal" class="eventOne event" id="eventOne">FIRST EVENT</button></div>
+    <div class="reveal" id="popUp-modal" data-reveal>
+      <ul>
+        <li>IMG</li>
+        <li>Title</li>
+        <li>Date:</li>
+        <li>Description</li>
+        <li>Link:</li>
+      </ul>
     </div>
-    <div class="eventOne" id="eventOne">SECOND EVENT</div>
-    <div class="eventOne" id="eventOne">THIRD EVENT</div>
-    <div class="eventOne" id="eventOne">FOURTH EVENT</div>
-    <div class="eventOne" id="eventOne">FITH EVENT</div>
+    <div><button data-open="popUp-modal" class="eventOne" id="eventOne">SECOND EVENT</button></div>
+    <div class="reveal" id="popUp-modal" data-reveal>
+      <ul>
+        <li>IMG</li>
+        <li>Title</li>
+        <li>Date:</li>
+        <li>Description</li>
+        <li>Link:</li>
+      </ul>
+    </div>
+    <div><button data-open="popUp-modal" class="eventOne" id="eventOne">THIRD EVENT</button></div>
+    <div class="reveal" id="popUp-modal" data-reveal>
+      <ul>
+        <li>IMG</li>
+        <li>Title</li>
+        <li>Date:</li>
+        <li>Description</li>
+        <li>Link:</li>
+      </ul>
+    </div>
+    <div><button data-open="popUp-modal" class="eventOne" id="eventOne">FOURTH EVENT</button></div>
+    <div class="reveal" id="popUp-modal" data-reveal>
+      <ul>
+        <li>IMG</li>
+        <li>Title</li>
+        <li>Date:</li>
+        <li>Description</li>
+        <li>Link:</li>
+      </ul>
+    </div>
+    <div><button data-open="popUp-modal" class="eventOne" id="eventOne">FITH EVENT</button></div>
+    <div class="reveal" id="popUp-modal" data-reveal>
+      <ul>
+        <li>IMG</li>
+        <li>Title</li>
+        <li>Date:</li>
+        <li>Description</li>
+        <li>Link:</li>
+      </ul>
+    </div>
   </section>
 
+  
 
-
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js" integrity="sha256-pRF3zifJRA9jXGv++b06qwtSqX1byFQOLjqa2PTEb2o=" crossorigin="anonymous"></script>
+  <script>
+    $(document).foundation();
+  </script>
 <script src="assets/js/script.js"></script>
 </body>
 </html>
