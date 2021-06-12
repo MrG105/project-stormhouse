@@ -1,14 +1,29 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background-color: grey;
+}
+
 .header {
-    background-color: cadetblue;
+    padding: 20px;
     text-align: center;
+    background-color: cornflowerblue;
+
 }
 
 .citySearch {
-  
+    background-color: cornflowerblue;
+
    border: solid black 2px;
 }
 h2 {
    margin-left: 40%; 
+   background-color: cornflowerblue;
+
 }
 .searchBar {
     width: 50%;
@@ -20,10 +35,14 @@ h2 {
 }
 
 .display {
+    margin-bottom: 20px;
+    padding: 50px;
+    height: 300px;
     margin-top: 50px;
     border: black 2px solid;
     width: 70%;
     height: 500px;
+    border: none;
 }
 
 .weather {
