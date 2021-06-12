@@ -7,7 +7,7 @@ var searchBar = document.getElementById("searchBar");
 var searchHistory = JSON.parse(localStorage.getItem('search')) || [];
 var weatherEl = document.getElementById('weather');
 var eventEl = document.getElementsByClassName('eventOne');
-
+var modalEl= document.getElementsByClassName('popUp-modal')
 
 // Function to parse lat/lon from Ticketmaster venue info to get weather info
 function getWeather(data) {
@@ -81,6 +81,7 @@ function getEventInfo(city) {
       success: function(json) {
          console.log(json);
          populateEventList(json);
+         populateModal(json);
          getWeather(json);
          // Parse the response.
          // Do other things.
@@ -90,7 +91,28 @@ function getEventInfo(city) {
       }  
    })
 }
-
+// Function to populate Modals with info
+function populateModal(data) {
+   for (i = 0; i <data._embedded.events.length; i++) {
+      modalEl[i].innerHTML = '';
+      var eventTitleData = data._embedded.events[i].name;
+      var eventTitle = document.createElement('h3');
+      eventTitle.innerHTML = eventTitleData;
+      modalEl[i].appendChild(eventTitle);
+      var eventIconURL = data._embedded.events[i].images[1].url;
+      var eventIcon = document.createElement('img');
+      eventIcon.setAttribute('src', eventIconURL);
+      modalEl[i].appendChild(eventIcon);
+      var eventTimeData = data._embedded.events[i].dates.start.dateTime;
+      var eventTime = document.createElement('p');
+      eventTime.innerHTML = eventTimeData;
+      modalEl[i].appendChild(eventTime);
+      var eventInfoData = data._embedded.events[i].info;
+      var eventInfo = document.createElement('p');
+      eventInfo.innerHTML = eventInfoData;
+      modalEl[i].appendChild(eventInfo);
+   }
+}
 // function init() {
 //    getCoords(city);
 //    getEventInfo();
