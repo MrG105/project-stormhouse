@@ -48,7 +48,7 @@ h2 {
 
 .weather {
     border: solid black 2px;
-    width: 350px;
+    width: 400px;
     height: 400px;
     margin-top: 30px;
     margin-left: 25px;
@@ -57,8 +57,8 @@ h2 {
 
 .eventOne {
     display: flex;
-    width: 550px;
-    height: 80px;
+    width: 750px;
+    height: 75px;
     border: black 2px solid;
     justify-content: space-between;
     margin-left: 500px;
