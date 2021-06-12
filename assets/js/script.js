@@ -1,22 +1,21 @@
 var WeatherKey = "fc68a64d0afee1bc09c4e15296f59f41";
 // Test Houston, start and end date
-var eventSize = 10;
-// var city = 'Houston';
+var eventSize = 5;
 var startDate = '2021-06-12T14:00:00Z';
 var endDate =  '2021-06-14T14:00:00Z';
-// var searchBtn = document.getElementById("searchBtn");
 var searchBar = document.getElementById("searchBar");
-var family = 'only';
 var searchHistory = JSON.parse(localStorage.getItem('search')) || [];
 var weatherEl = document.getElementById('weather');
 var eventEl = document.getElementsByClassName('eventOne');
 
 
-// Gives City Coordinates for future weather
-function getWeather(lat,lon) {
+// Function to parse lat/lon from Ticketmaster venue info to get weather info
+function getWeather(data) {
+   var lon = data._embedded.events[0]._embedded.venues[0].location.longitude;
+   var lat = data._embedded.events[0]._embedded.venues[0].location.latitude;
    $.ajax({
       type:'GET',
-      url:"https:https://api.openweathermap.org/data/2.5/onecall?",
+      url:"https://api.openweathermap.org/data/2.5/onecall?",
       async:true,
       dataType: 'json',
       data: {
@@ -26,6 +25,7 @@ function getWeather(lat,lon) {
       },
       success: function(json) {
          console.log(json);
+         populateWeather(json);
          // Parse the response.
          // Do other things.
       },
@@ -37,7 +37,7 @@ function getWeather(lat,lon) {
 
 // Function to populate the event list
 function populateEventList(data) {
-   for (i = 0; i <eventEl.length; i++) {
+   for (i = 0; i <data._embedded.events.length; i++) {
       eventEl[i].innerHTML = '';
       var eventIconURL = data._embedded.events[i].images[0].url;
       var eventIcon = document.createElement('img');
@@ -50,14 +50,21 @@ function populateEventList(data) {
    }
 }
 
-//    var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + WeatherKey
-//    fetch(queryURL) 
-//    .then(function (response1) {
-//        return response1.json();
-//    })
-// }
+// Function to pull weather data from JSON
+function populateWeather(data) {
+   weatherEl.innerHTML = '';
+   var weatherIconURL = data.daily[i].weather[0].icon;
+   var weatherIcon = document.createElement('img');
+   weatherIcon.setAttribute('src', 'https://openweathermap.org/img/wn/' + weatherIconURL + "@2x.png");
+   weatherEl.appendChild(weatherIcon);
+   var weatherDescription = data.daily[i].weather[0].description;
+   var  weatherInfo = document.createElement('h4');
+   weatherInfo.innerHTML = weatherDescription;
+   weatherEl.appendChild(weatherInfo);
 
-// Ticketmaster API Call
+}
+
+// Ticketmaster API Call, continues functions
 function getEventInfo(city) { 
    $.ajax({
       type:"GET",
@@ -70,11 +77,11 @@ function getEventInfo(city) {
          'city': city,
          'startDateTime': startDate,
          'endDateTime': endDate,
-         // 'includeFamily': family       
       },
       success: function(json) {
          console.log(json);
          populateEventList(json);
+         getWeather(json);
          // Parse the response.
          // Do other things.
       },
