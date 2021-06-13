@@ -16,10 +16,14 @@
      <h2>Search a City for Events</h2> 
     <input type="text" class="searchBar" id="searchBar" placeholder="SEARCH: enter an address, city, state or zip code">
     <button class="searchBtn" id="searchBtn">SEARCH</button>
+    <!-- Fix location  -->
+    <button class="button alert" type="button" id="clearBtn">Clear Recent Searches</button>
+    <div id='history' class = 'my-2'></div>
+    <!--  -->
   </section>
   <section class="display" id="display">
     <div class="weather" id="weather">WEATHER</div>
-    <div data-open="popUp-modal" class="eventOne event" id="eventOne">FIRST EVENT</div>
+    <div data-open="popUp-modal" class="eventOne event" data-eventIndex = "0">FIRST EVENT</div>
     <div class="reveal popUp-modal" id="popUp-modal" data-reveal>
       <ul>
         <li>IMG</li>
@@ -29,7 +33,7 @@
         <li>Link:</li>
       </ul>
     </div>
-    <div data-open="popUp-modal" class="eventOne" id="eventOne">SECOND EVENT</div>
+    <div data-open="popUp-modal" class="eventOne" data-eventIndex = "1">SECOND EVENT</div>
     <div class="reveal popUp-modal" id="popUp-modal" data-reveal>
       <ul>
         <li>IMG</li>
@@ -39,7 +43,7 @@
         <li>Link:</li>
       </ul>
     </div>
-    <div data-open="popUp-modal" class="eventOne" id="eventOne">THIRD EVENT</div>
+    <div data-open="popUp-modal" class="eventOne" data-eventIndex ="2">THIRD EVENT</div>
     <div class="reveal popUp-modal" id="popUp-modal" data-reveal>
       <ul>
         <li>IMG</li>
@@ -49,7 +53,7 @@
         <li>Link:</li>
       </ul>
     </div>
-    <div data-open="popUp-modal" class="eventOne" id="eventOne">FOURTH EVENT</div>
+    <div data-open="popUp-modal" class="eventOne" data-eventIndex= "3">FOURTH EVENT</div>
     <div class="reveal popUp-modal" id="popUp-modal" data-reveal>
       <ul>
         <li>IMG</li>
@@ -59,7 +63,7 @@
         <li>Link:</li>
       </ul>
     </div>
-    <div data-open="popUp-modal" class="eventOne" id="eventOne">FIFTH EVENT</div>
+    <div data-open="popUp-modal" class="eventOne" data-eventIndex= "4">FIFTH EVENT</div>
     <div class="reveal popUp-modal" id="popUp-modal" data-reveal>
       <ul>
         <li>IMG</li>
@@ -75,6 +79,7 @@
 
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js" integrity="sha256-pRF3zifJRA9jXGv++b06qwtSqX1byFQOLjqa2PTEb2o=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   <script>
     $(document).foundation();
   </script>
