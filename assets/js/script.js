@@ -6,10 +6,9 @@ var endDate =  '2021-06-14T14:00:00Z';
 var searchBar = document.getElementById("searchBar");
 var searchHistory = JSON.parse(localStorage.getItem('search')) || [];
 var weatherEl = document.getElementById('weather');
-var eventEl = document.getElementsByClassName('eventOne');
+var eventEl = document.getElementsByClassName('event');
 var recentHistory = document.getElementById('history');
-var modalEl= document.getElementsByClassName('popUp-modal');
-var ticketmasterEvents = [];
+var ticketmasterEvents = [];  
 var weatherData = [];
 
 // Function to parse lat/lon from Ticketmaster venue info to get weather info
@@ -101,7 +100,7 @@ function getEventInfo(city) {
             }
          })
          populateEventList(json);
-         populateModal(json);
+         // populateModal(json);
          getWeather(json);
          // Parse the response.
          // Do other things.
@@ -111,40 +110,42 @@ function getEventInfo(city) {
       }  
    })
 }
-// Function to populate Modals with info
-function populateModal(eventIndex) {
-   for (i = 0; i <ticketmasterEvents.length; i++) {
-      modalEl[i].innerHTML = '';
-      var eventTitleData = ticketmasterEvents[i].name;
-      var eventTitle = document.createElement('h3');
-      eventTitle.innerHTML = eventTitleData;
-      modalEl[i].appendChild(eventTitle);
-      var eventIconURL = ticketmasterEvents[i].image;
-      var eventIcon = document.createElement('img');
-      eventIcon.setAttribute('src', eventIconURL);
-      modalEl[i].appendChild(eventIcon);
-      var eventTimeData = ticketmasterEvents[i].date;
-      var eventTime = document.createElement('p');
-      eventTime.innerHTML = eventTimeData;
-      modalEl[i].appendChild(eventTime);
-      var eventInfoData = ticketmasterEvents[i].info;
-      var eventInfo = document.createElement('p');
-      eventInfo.innerHTML = eventInfoData;
-      modalEl[i].appendChild(eventInfo);
-      var eventURLData = ticketmasterEvents[i].url;
-      var eventURL = document.createElement('a');
-      eventURL.setAttribute('href', eventURLData);
-      eventURL.innerHTML = eventURL;
-      modalEl[i].appendChild(eventURL);
 
-   }
+// Function to populate Modals with info
+function populateModal(eventIndex) {      
+   var modalEl = document.getElementById(`popUp-modal-${eventIndex}`);
+   modalEl.innerHTML = '';
+
+   var eventTitleData = ticketmasterEvents[eventIndex].name;
+   var eventTitle = document.createElement('h3');
+   eventTitle.innerHTML = eventTitleData;
+   modalEl.appendChild(eventTitle);
+
+   var eventIconURL = ticketmasterEvents[eventIndex].image;
+   var eventIcon = document.createElement('img');
+   eventIcon.setAttribute('src', eventIconURL);
+   modalEl.appendChild(eventIcon);
+
+   var eventTimeData = ticketmasterEvents[eventIndex].date;
+   var eventTime = document.createElement('p');
+   eventTime.innerHTML = eventTimeData;
+   modalEl.appendChild(eventTime);
+
+   var eventInfoData = ticketmasterEvents[eventIndex].info;
+   var eventInfo = document.createElement('p');
+   eventInfo.innerHTML = eventInfoData;
+   modalEl.appendChild(eventInfo);
+   
+   var eventURLData = ticketmasterEvents[eventIndex].url;
+   var eventURL = document.createElement('a');
+   eventURL.setAttribute('href', eventURLData);
+   eventURL.innerHTML = eventURL;
+   modalEl.appendChild(eventURL);
 }
 
 // Loads search history on page start
 function init() {
    listSearchHistory();
-//    getCoords(city);
-//    getEventInfo();
 }
 
 // Search Button Event Handler
@@ -156,32 +157,6 @@ $('#searchBtn').click(function () {
    localStorage.setItem("search", JSON.stringify(searchHistory))
    listSearchHistory();
 })
-
-// $('#eventOne').on('click', 'popUp-modal', function(){
-//    console.log('I am a Modal bleh');
-// })
-
-// $('#trigger-reveal').on('click', function () {
-//    $.ajax(ticketmasterEvents).
-//       done(function(content) {
-//          $('#reveal1').html(content).foundation('open');
-//       })
-// })
-
-//  $('#popUp-modal').foundation('reveal', 'open', {
-//    weatherData,
-//    success: function(data) {
-//        alert('modal data loaded');
-//    },
-//    error: function() {
-//        alert('failed loading modal');
-//    }
-// });
-
-// Event Handler for Modals
-// $('.eventOne').click (function (eventIndex) {
-//    populateModal(eventIndex);
-// })
 
 // Recent Search History
 function listSearchHistory() {
@@ -207,16 +182,30 @@ $('#clearBtn').click(function () {
    listSearchHistory();
 })
 
-// TODO: Event Handlers for search parameters
-// Parse Response
-// Update HTML based on response
-
-// On page load
-init();
-
-
-
 // Search Parameters
 // city - city
 // results per page - size
 // start/end date - startDateTime + endDateTime
+
+$(document).on('open.zf.reveal', '#popUp-modal-0', function() {
+   populateModal(0)
+});
+
+$(document).on('open.zf.reveal', '#popUp-modal-1', function() {
+   populateModal(1)
+});
+
+$(document).on('open.zf.reveal', '#popUp-modal-2', function() {
+   populateModal(2)
+});
+
+$(document).on('open.zf.reveal', '#popUp-modal-3', function() {
+   populateModal(3)
+});
+
+$(document).on('open.zf.reveal', '#popUp-modal-4', function() {
+   populateModal(4)
+});
+
+// On page load
+init();
