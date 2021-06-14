@@ -28,10 +28,24 @@ function getWeather(data) {
       success: function(json) {
          weatherData = json.daily.map(function(day) {
             return {
-               dt: moment.unix(day.dt).format('dddd, MMMM Do, YYYY h:mm:ss A'),
+               dt: moment.unix(day.dt).format('LLLL'),
                id: day.weather[0].id,
                desc: day.weather[0].description,
                icon: day.weather[0].icon, 
+            }
+         })
+         ticketmasterEvents = data._embedded.events.map(function(event) {
+            return {
+               name: event.name,
+               image: event.images[1].url,
+               date: moment(event.dates.start.dateTime).format('LLLL'),
+               info: event.info,
+               url: event.url,
+               weatherDescription: weatherData.filter(function(weather) {
+                  var weatherDate = moment(weather.dt)
+                  var eventDate = moment(event.dates.start.dateTime)
+                  return weatherDate.isSame(eventDate, 'day')
+               })[0]
             }
          })
          console.log(json);
@@ -47,7 +61,7 @@ function getWeather(data) {
 
 // Function to populate the event list
 function populateEventList(data) {
-   for (i = 0; i <data._embedded.events.length; i++) {
+   for (i = 0; i <eventEl.length; i++) {
       eventEl[i].innerHTML = '';
       var eventIconURL = data._embedded.events[i].images[0].url;
       var eventIcon = document.createElement('img');
@@ -90,18 +104,9 @@ function getEventInfo(city) {
       },
       success: function(json) {
          console.log(json);
-         ticketmasterEvents = json._embedded.events.map(function(event) {
-            return {
-               name: event.name,
-               image: event.images[1].url,
-               date: moment(event.dates.start.dateTime).format('dddd, MMMM Do, YYYY h:mm:ss A'),
-               info: event.info,
-               url: event.url, 
-            }
-         })
+         getWeather(json);
          populateEventList(json);
          // populateModal(json);
-         getWeather(json);
          // Parse the response.
          // Do other things.
       },
@@ -125,6 +130,16 @@ function populateModal(eventIndex) {
    var eventIcon = document.createElement('img');
    eventIcon.setAttribute('src', eventIconURL);
    modalEl.appendChild(eventIcon);
+
+   var weatherIconURL = ticketmasterEvents[eventIndex].weatherDescription.icon;
+   var weatherIcon = document.createElement('img');
+   weatherIcon.setAttribute('src', 'https://openweathermap.org/img/wn/' + weatherIconURL + ".png");
+   modalEl.appendChild(weatherIcon);
+
+   var weatherDesc = ticketmasterEvents[eventIndex].weatherDescription.desc;
+   var weatherInfo = document.createElement('h4');
+   weatherInfo.innerHTML = weatherDesc;
+   modalEl.appendChild(weatherInfo);
 
    var eventTimeData = ticketmasterEvents[eventIndex].date;
    var eventTime = document.createElement('p');
@@ -187,6 +202,7 @@ $('#clearBtn').click(function () {
 // results per page - size
 // start/end date - startDateTime + endDateTime
 
+// Eventhandlers for Modals
 $(document).on('open.zf.reveal', '#popUp-modal-0', function() {
    populateModal(0)
 });
