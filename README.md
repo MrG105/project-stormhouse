@@ -11,4 +11,9 @@ A customer wants to go out of town for a weekend and attend an event. In this we
 ### Screen Shots
 ![screenshot](./assets/screenshot.PNG)
 ### Live Link
-https://mrg105.github.io/project-stormhouse/
+## URL
+Web page can be located at [Gitpages](https://mrg105.github.io/project-stormhouse/ "Project Stormhouse")
+
+## Repo
+Repository can be located at [Github](https://github.com/MrG105/project-stormhouse "Github")
+
