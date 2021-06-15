@@ -1,7 +1,6 @@
 var WeatherKey = "fc68a64d0afee1bc09c4e15296f59f41";
 // Test Houston, start and end date
-var eventSize = 40;
-// var endDate =  '2021-06-14T14:00:00Z';
+var eventSize = 5;
 var searchBar = document.getElementById("searchBar");
 var searchHistory = JSON.parse(localStorage.getItem('search')) || [];
 var weatherEl = document.getElementById('weather');
@@ -9,7 +8,11 @@ var eventEl = document.getElementsByClassName('event');
 var recentHistory = document.getElementById('history');
 var ticketmasterEvents = [];  
 var weatherData = [];
+var startDatePicked = document.querySelector('#datePicker1','input[type="date"]');
+var endDatePicked = document.querySelector('#datePicker2','input[type="date"]');
 
+// var startDate = selectedDate.value;
+// var endDate =  moment(datePicker.value).add(7,'d').toISOString();
 
 
 // Function to parse lat/lon from Ticketmaster venue info to get weather info
@@ -94,9 +97,10 @@ function populateWeather(data) {
 
 // Ticketmaster API Call, continues functions
 function getEventInfo(city) { 
-   var datePicker = document.querySelector('input[type="date"');
-   var startDate = moment(datePicker.value).format()
-   console.log(startDate)
+   // console.log(startDate)
+   var startDate = moment(startDatePicked.value).format('YYYY-MM-DDTHH:mm:ssZ');
+   var endDate = moment(endDatePicked.value).format('YYYY-MM-DDTHH:mm:ssZ')
+   console.log(startDate);
    $.ajax({
       type:"GET",
       url:"https://app.ticketmaster.com/discovery/v2/events.json?",
@@ -106,7 +110,9 @@ function getEventInfo(city) {
          'size': eventSize,
          'apikey': 'ErpaEawaL6ezuvntLs0ajqdHla2rkqbA',
          'city': city,
-         'startDateTime': startDate
+         'startDateTime': startDate,
+         'endDateTime': endDate,
+         'sort': 'date,desc'
         
       },
       success: function(json) {
@@ -138,26 +144,33 @@ function populateModal(eventIndex) {
    eventIcon.setAttribute('src', eventIconURL);
    modalEl.appendChild(eventIcon);
 
-   var weatherIconURL = ticketmasterEvents[eventIndex].weatherDescription.icon;
-   var weatherIcon = document.createElement('img');
-   weatherIcon.setAttribute('src', 'https://openweathermap.org/img/wn/' + weatherIconURL + ".png");
-   modalEl.appendChild(weatherIcon);
+   if (ticketmasterEvents[eventIndex].weatherDescription != undefined) {
 
-   var weatherDesc = ticketmasterEvents[eventIndex].weatherDescription.desc;
-   var weatherInfo = document.createElement('h4');
-   weatherInfo.innerHTML = weatherDesc;
-   modalEl.appendChild(weatherInfo);
-
+      var weatherIconURL = ticketmasterEvents[eventIndex].weatherDescription.icon;
+      var weatherIcon = document.createElement('img');
+      weatherIcon.setAttribute('src', 'https://openweathermap.org/img/wn/' + weatherIconURL + ".png");
+      modalEl.appendChild(weatherIcon);
+   
+      var weatherDesc = ticketmasterEvents[eventIndex].weatherDescription.desc;
+      var weatherInfo = document.createElement('h4');
+      weatherInfo.innerHTML = weatherDesc;
+      modalEl.appendChild(weatherInfo);
+   }
    var eventTimeData = ticketmasterEvents[eventIndex].date;
    var eventTime = document.createElement('p');
    eventTime.innerHTML = eventTimeData;
    modalEl.appendChild(eventTime);
 
-   var eventInfoData = ticketmasterEvents[eventIndex].info;
-   var eventInfo = document.createElement('p');
-   eventInfo.innerHTML = eventInfoData;
-   modalEl.appendChild(eventInfo);
-   
+   if (ticketmasterEvents[eventIndex].info == undefined) {
+      eventInfo = document.createElement('p');
+      eventInfo.innerHTML = "No Further Information Currently Provided";
+      modalEl.appendChild(eventInfo);
+   } else {
+      var eventInfoData = ticketmasterEvents[eventIndex].info;
+      var eventInfo = document.createElement('p');
+      eventInfo.innerHTML = eventInfoData;
+      modalEl.appendChild(eventInfo);
+   }
    var eventURLData = ticketmasterEvents[eventIndex].url;
    var eventURL = document.createElement('a');
    eventURL.setAttribute('href', eventURLData);
@@ -179,7 +192,6 @@ $('#searchBtn').click(function () {
    localStorage.setItem("search", JSON.stringify(searchHistory))
    listSearchHistory();
    console.log(ticketmasterEvents)
-   console.log(datePicker.value)
    
 })
 
