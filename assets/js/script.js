@@ -144,26 +144,33 @@ function populateModal(eventIndex) {
    eventIcon.setAttribute('src', eventIconURL);
    modalEl.appendChild(eventIcon);
 
-   var weatherIconURL = ticketmasterEvents[eventIndex].weatherDescription.icon;
-   var weatherIcon = document.createElement('img');
-   weatherIcon.setAttribute('src', 'https://openweathermap.org/img/wn/' + weatherIconURL + ".png");
-   modalEl.appendChild(weatherIcon);
+   if (ticketmasterEvents[eventIndex].weatherDescription != undefined) {
 
-   var weatherDesc = ticketmasterEvents[eventIndex].weatherDescription.desc;
-   var weatherInfo = document.createElement('h4');
-   weatherInfo.innerHTML = weatherDesc;
-   modalEl.appendChild(weatherInfo);
-
+      var weatherIconURL = ticketmasterEvents[eventIndex].weatherDescription.icon;
+      var weatherIcon = document.createElement('img');
+      weatherIcon.setAttribute('src', 'https://openweathermap.org/img/wn/' + weatherIconURL + ".png");
+      modalEl.appendChild(weatherIcon);
+   
+      var weatherDesc = ticketmasterEvents[eventIndex].weatherDescription.desc;
+      var weatherInfo = document.createElement('h4');
+      weatherInfo.innerHTML = weatherDesc;
+      modalEl.appendChild(weatherInfo);
+   }
    var eventTimeData = ticketmasterEvents[eventIndex].date;
    var eventTime = document.createElement('p');
    eventTime.innerHTML = eventTimeData;
    modalEl.appendChild(eventTime);
 
-   var eventInfoData = ticketmasterEvents[eventIndex].info;
-   var eventInfo = document.createElement('p');
-   eventInfo.innerHTML = eventInfoData;
-   modalEl.appendChild(eventInfo);
-   
+   if (ticketmasterEvents[eventIndex].info == undefined) {
+      eventInfo = document.createElement('p');
+      eventInfo.innerHTML = "No Further Information Currently Provided";
+      modalEl.appendChild(eventInfo);
+   } else {
+      var eventInfoData = ticketmasterEvents[eventIndex].info;
+      var eventInfo = document.createElement('p');
+      eventInfo.innerHTML = eventInfoData;
+      modalEl.appendChild(eventInfo);
+   }
    var eventURLData = ticketmasterEvents[eventIndex].url;
    var eventURL = document.createElement('a');
    eventURL.setAttribute('href', eventURLData);
