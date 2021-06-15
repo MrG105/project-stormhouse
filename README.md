@@ -9,6 +9,6 @@ A customer wants to go out of town for a weekend and attend an event. In this we
 5. Recent searched cities display
 
 ### Screen Shots
-
+![screenshot](./assets/screenshot.PNG)
 ### Live Link
 https://mrg105.github.io/project-stormhouse/
