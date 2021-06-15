@@ -32,7 +32,7 @@ h2 {
     height: 45px;
 }
 .searchBtn {
-    margin-left: 50%;
+    margin-left: 48%;
 }
 
 .display {
@@ -73,4 +73,11 @@ h2 {
 h4 {
     font-size: 32px;
     color: blue;
+}
+
+.datePicker {
+    height: 50px;
+    width: 200px;
+margin-left: 45%;
+margin-top: 10px;
 }
