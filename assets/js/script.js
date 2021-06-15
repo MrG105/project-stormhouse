@@ -8,7 +8,9 @@ var eventEl = document.getElementsByClassName('event');
 var recentHistory = document.getElementById('history');
 var ticketmasterEvents = [];  
 var weatherData = [];
-var selectedDate = document.querySelector('input[type="date"]');
+var startDatePicked = document.querySelector('#datePicker1','input[type="date"]');
+var endDatePicked = document.querySelector('#datePicker2','input[type="date"]');
+
 // var startDate = selectedDate.value;
 // var endDate =  moment(datePicker.value).add(7,'d').toISOString();
 
@@ -96,7 +98,9 @@ function populateWeather(data) {
 // Ticketmaster API Call, continues functions
 function getEventInfo(city) { 
    // console.log(startDate)
-   var startDate = moment(selectedDate.value).toISOString()
+   var startDate = moment(startDatePicked.value).format('YYYY-MM-DDTHH:mm:ssZ');
+   var endDate = moment(endDatePicked.value).format('YYYY-MM-DDTHH:mm:ssZ')
+   console.log(startDate);
    $.ajax({
       type:"GET",
       url:"https://app.ticketmaster.com/discovery/v2/events.json?",
@@ -107,6 +111,7 @@ function getEventInfo(city) {
          'apikey': 'ErpaEawaL6ezuvntLs0ajqdHla2rkqbA',
          'city': city,
          'startDateTime': startDate,
+         'endDateTime': endDate,
          'sort': 'date,desc'
         
       },
