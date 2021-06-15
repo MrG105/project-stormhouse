@@ -1,7 +1,6 @@
 var WeatherKey = "fc68a64d0afee1bc09c4e15296f59f41";
 // Test Houston, start and end date
-var eventSize = 40;
-// var endDate =  '2021-06-14T14:00:00Z';
+var eventSize = 5;
 var searchBar = document.getElementById("searchBar");
 var searchHistory = JSON.parse(localStorage.getItem('search')) || [];
 var weatherEl = document.getElementById('weather');
@@ -9,7 +8,9 @@ var eventEl = document.getElementsByClassName('event');
 var recentHistory = document.getElementById('history');
 var ticketmasterEvents = [];  
 var weatherData = [];
-
+var selectedDate = document.querySelector('input[type="date"]');
+// var startDate = selectedDate.value;
+// var endDate =  moment(datePicker.value).add(7,'d').toISOString();
 
 
 // Function to parse lat/lon from Ticketmaster venue info to get weather info
@@ -94,9 +95,8 @@ function populateWeather(data) {
 
 // Ticketmaster API Call, continues functions
 function getEventInfo(city) { 
-   var datePicker = document.querySelector('input[type="date"');
-   var startDate = moment(datePicker.value).format()
-   console.log(startDate)
+   // console.log(startDate)
+   var startDate = moment(selectedDate.value).toISOString()
    $.ajax({
       type:"GET",
       url:"https://app.ticketmaster.com/discovery/v2/events.json?",
@@ -106,7 +106,8 @@ function getEventInfo(city) {
          'size': eventSize,
          'apikey': 'ErpaEawaL6ezuvntLs0ajqdHla2rkqbA',
          'city': city,
-         'startDateTime': startDate
+         'startDateTime': startDate,
+         'sort': 'date,desc'
         
       },
       success: function(json) {
@@ -179,7 +180,6 @@ $('#searchBtn').click(function () {
    localStorage.setItem("search", JSON.stringify(searchHistory))
    listSearchHistory();
    console.log(ticketmasterEvents)
-   console.log(datePicker.value)
    
 })
 
